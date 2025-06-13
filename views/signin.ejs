@@ -3,11 +3,38 @@
 <head>
     <%-include('./partials/head')%>
     <title>Signup</title>
+    <style>
+      .error-container{
+        height:100%;
+        background-color: rgb(235, 149, 149);
+        border-radius: 5px;
+        border: 2px solid rgb(187, 23, 23);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .super-container{
+        height:50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .err-message{
+        padding:5px;
+      }
+    </style>
 </head>
 <body>
    <%-include('./partials/nav')%>
 
    <div class="container mt-4">
+    <% if (error) { %>
+      <div class="super-container">
+        <div class="error-container">
+          <span class="err-message">Incorrect Password,try again!!!</span>
+        </div>
+      </div>
+    <% } %>
 <form action="/user/signin" method="POST">
   <div class="mb-3">
     <label class="form-label">Email address</label>

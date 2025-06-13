@@ -6,14 +6,19 @@ const router=Router();
 
 router.route("/signin")
 .get((req,res)=>{
-    return res.render("signin");
+    return res.render("signin",{error:null});
 })
 .post(async (req,res)=>{
     const {email,password}=req.body;
-    const user=await User.matchPassword(email,password);
-
-    console.log("User",user);
-    return res.redirect("/")
+    try{
+    const token=await User.matchPasswordAndGenerateToken(email,password);
+    return res.cookie("token",token).redirect("/");
+    }
+    catch(err){
+        return res.render('signin',{
+            error:"Incorrect Email or Password"
+        })
+    }
 })
 
 router.route("/signup")
