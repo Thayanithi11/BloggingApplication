@@ -35,4 +35,8 @@ router.route("/signup")
     return res.redirect("/");
 })
 
+router.get('/logout',(req,res)=>{
+    res.clearCookie("token").redirect("/");
+})
+
 module.exports=router;
