@@ -1,5 +1,6 @@
 const {Schema,model}=require("mongoose");
 
+
 const blogSchema=new Schema({
     title:{
         type:String,
@@ -14,7 +15,8 @@ const blogSchema=new Schema({
     },
     createdBy:{
         type:Schema.Types.ObjectId,
-        ref:"user",
+        ref:"User",
+        required:true,
     }
 },{timestamps:true})
 
