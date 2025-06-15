@@ -14,7 +14,7 @@ app.set("view engine","ejs");
 app.set("views",path.resolve("./views"));
 
 mongoose.set('bufferCommands', false);
-mongoose.connect(process.env.MONGO_URL, {
+mongoose.connect(process.env.MONGO_URl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
