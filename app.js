@@ -9,11 +9,11 @@ const cookieparser=require("cookie-parser");
 const { checkForAuthenticationCookie } = require("./middlewares/authentication");
 
 const app=express();
-const PORT=process.env.PORT
+const PORT=process.env.PORT || 8000
 app.set("view engine","ejs");
 app.set("views",path.resolve("./views"));
 
-mongoose.connect('mongodb://localhost:27017/blogify')
+mongoose.connect(process.env.MONGO_URL)
 .then((e)=>{
     console.log("MongoDB connected");
 })
