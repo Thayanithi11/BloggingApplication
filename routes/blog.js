@@ -28,6 +28,7 @@ const storage=multer.diskStorage({
 const upload=multer({storage:storage});
 
 router.get("/add-new",(req,res)=>{
+    if (!req.user) return res.redirect("/user/signin");
     return res.render('addblog',{
         user:req.user,
     })
@@ -45,17 +46,20 @@ router.get("/view-blogs", async (req, res) => {
 });
 
 router.get("/edit/:id",async (req,res)=>{
+    if (!req.user) return res.redirect("/user/signin");
     const blog=await Blog.findById(req.params.id);
     return res.render('edit', { blog, user: req.user });
 })
 
 router.get("/delete/:id",async (req,res)=>{
+    if (!req.user) return res.redirect("/user/signin");
     const blog=await Blog.findById(req.params.id);
     await Blog.deleteOne({_id:blog._id});
     res.redirect("/blog/view-blogs");
 })
 
 router.get("/:id",async (req,res)=>{
+    if (!req.user) return res.redirect("/user/signin");
     const blog=await Blog.findById(req.params.id).populate("createdBy");
     const comments=await Comment.find({blogId:req.params.id}).populate('createdBy')
     return res.render("blog",{
