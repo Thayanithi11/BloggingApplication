@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head') %>
+    <title>Edit Blog</title>
+</head>
+<body>
+    <%- include('./partials/nav') %>
+    <div class="container mt-3">
+        <form action="/blog/edit/<%= blog._id %>" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="coverImage" class="form-label">Cover Image</label>
+                <input type="file" class="form-control" id="coverImage" name="coverImage" aria-describedby="coverImage">
+                <% if (blog.coverImageURL) { %>
+                    <img src="<%= blog.coverImageURL %>" alt="Current Cover Image" style="max-width: 200px; margin-top: 10px;" />
+                    <!-- Hidden input to keep old cover image path if no new image uploaded -->
+                    <input type="hidden" name="oldCoverImageURL" value="<%= blog.coverImageURL %>">
+                <% } %>
+            </div>
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="title" 
+                  name="title" 
+                  value="<%= blog.title %>" 
+                  required
+                >
+            </div>
+            <div class="mb-3">
+                <label for="body" class="form-label">Body</label>
+                <textarea 
+                  name="body" 
+                  class="form-control" 
+                  placeholder="Write your blog here" 
+                  id="body" 
+                  required
+                  rows="8"
+                ><%= blog.body %></textarea>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary" type="submit">Update</button>
+                <a href="/blog/view-blogs" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+    <%- include('./partials/scripts') %>
+</body>
+</html>

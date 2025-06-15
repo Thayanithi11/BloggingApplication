@@ -7,16 +7,24 @@
 <body>
    <%-include('./partials/nav')%>
    <div class="container mt-3">
+    <div class="row row-cols-3">
      <% blogs.forEach((blog) => { %>
-        <div class="card" style="width: 18rem; margin:10px;">
-  <img src="<%= blog.coverImageURL %>" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title"><%= blog.title %></h5>
-    <h6 style="font-weight:200;">Blog by: <%= blog.createdBy.fullName %></h6>
-    <a href="/blog/<%= blog._id %>" class="btn btn-primary">Read</a>
-  </div>
-</div>
+        <% if (blog.createdBy && blog.createdBy.fullName && user && blog.createdBy.fullName !== user.fullName) { %>
+            <div class="card" style="width: 18rem; margin:10px;">
+          <img src="<%= blog.coverImageURL %>" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><%= blog.title %></h5>
+            <a href="/blog/<%= blog._id %>" class="btn btn-primary">Read</a>
+            <div class="author mt-2">
+                <span><img src="<%=user.profile%>" width="15px" height="15px" style="margin-bottom:px;"/>
+                 <%= blog.createdBy.fullName%>
+                </span>
+            </div>
+          </div>
+        </div>
+        <% } %>
      <% }) %>
+    </div>
    </div>
    <%-include('./partials/scripts')%>
 </body>

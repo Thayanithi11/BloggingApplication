@@ -27,6 +27,7 @@ app.use(cookieparser())
 app.use(express.static(path.resolve("./public")))
 app.use(checkForAuthenticationCookie('token'))
 
+
 app.use("/user",userRoute);
 app.use("/blog",blogRouter);
 

@@ -32,7 +32,7 @@ router.route("/signup")
         email,
         password,
     })
-    return res.redirect("/");
+    return res.redirect("/user/signin");
 })
 
 router.get('/logout',(req,res)=>{
